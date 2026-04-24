@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edinburghplumbing — AI Assistant</title>
+
+  <script>
+    const CONFIG = {
+      "BACKEND_URL": "https://widget.numbero.org",
+      "ASSISTANT_ID": "assistant_edinburghplumbing_com_au_1777042727",
+      "PAGE_TITLE": "Edinburghplumbing \u2014 AI Assistant",
+      "BADGE_TEXT": "AI Assistant",
+      "TITLE": "Edinburghplumbing",
+      "SUBTITLE": "Ask me anything about Edinburghplumbing",
+      "START_BUTTON_TEXT": "Talk to AI",
+      "END_BUTTON_TEXT": "End call",
+      "STATUS_READY": "Ready",
+      "STATUS_CONNECTED": "Connected",
+      "GREETING_TEXT": "Hi! How can I help you today?",
+      "CONNECTING_TEXT": "Connecting...",
+      "CONNECTED_TEXT": "Connected \u2014 speak now",
+      "AGENT_READY_TEXT": "AI assistant ready",
+      "DISCONNECTED_TEXT": "Call ended",
+      "CONNECTION_FAILED_TEXT": "Connection failed \u2014 please try again",
+      "PRIMARY_COLOR": "#008BFB",
+      "ACCENT_COLOR": "#0076D5",
+      "ACCENT_COLOR_HOVER": "#0068BC",
+      "END_BUTTON_COLOR": "#d32f2f",
+      "END_BUTTON_HOVER": "#b71c1c",
+      "TEXT_COLOR": "#ffffff",
+      "SUBTITLE_COLOR": "#e3f2fd",
+      "SUCCESS_COLOR": "#2e7d32",
+      "LOGO_URL": "https://static.wixstatic.com/media/cf5903_c928ee1332a741469d7acf80cbf5fe7f~mv2.png/v1/fill/w_180,h_85,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Untitled%20design%20(16).png",
+      "TRUST_LINE": "AI-powered assistant"
+};
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #008BFB;
+      --accent: #0076D5;
+      --accent-hover: #0068BC;
+      --end-btn: #d32f2f;
+      --end-btn-hover: #b71c1c;
+      --text: #ffffff;
+      --subtitle: #e3f2fd;
+      --success: #2e7d32;
+      --card-bg: #001830;
+      --card-border: rgba(0, 118, 213, 0.15);
+      --glass: rgba(0, 139, 251, 0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: linear-gradient(135deg, #0a1628 0%, #0d2040 50%, #0a1628 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .widget {
+      width: 100%;
+      max-width: 460px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+      box-shadow:
+        0 0 0 1px rgba(0, 139, 251, 0.1),
+        0 32px 64px -16px rgba(0, 0, 0, 0.65),
+        0 0 120px -40px rgba(0, 118, 213, 0.15);
+    }
+
+    .widget::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(30deg, rgba(0,139,251,0.02) 12%, transparent 12.5%, transparent 87%, rgba(0,139,251,0.02) 87.5%),
+        linear-gradient(150deg, rgba(0,139,251,0.02) 12%, transparent 12.5%, transparent 87%, rgba(0,139,251,0.02) 87.5%);
+      background-size: 40px 70px;
+      opacity: 0.7;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .widget::after {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 200px;
+      background: radial-gradient(ellipse, rgba(0, 139, 251, 0.3) 0%, transparent 70%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* CLOSE BUTTON */
+    .close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 10;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
+      transition: all 0.2s;
+    }
+    .close-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+    .hdr {
+      position: relative;
+      z-index: 2;
+      padding: 28px 28px 0;
+      animation: fade-up 0.6s ease-out both;
+    }
+
+    .hdr-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .logo-mark {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+    }
+
+    .logo-initials {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      background: rgba(0, 118, 213, 0.12);
+      border: 1px solid rgba(0, 118, 213, 0.25);
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    .live-badge span {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hdr h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .hdr .tagline {
+      color: var(--subtitle);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-top: 10px;
+      max-width: 340px;
+    }
+
+    .orb-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 260px;
+      padding: 24px 28px;
+      position: relative;
+      z-index: 2;
+      animation: fade-up 0.6s ease-out 0.15s both;
+    }
+
+    .orb-wrap {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0, 118, 213, 0.1);
+      transition: border-color 0.6s ease, transform 0.6s ease;
+    }
+
+    .ring-1 { inset: -8px; }
+    .ring-2 { inset: -22px; }
+    .ring-3 { inset: -38px; }
+
+    .ring.active { border-color: rgba(0, 118, 213, 0.3); }
+    .ring-1.active { animation: ring-pulse 2.4s ease-in-out infinite; }
+    .ring-2.active { animation: ring-pulse 2.4s ease-in-out infinite 0.4s; }
+    .ring-3.active { animation: ring-pulse 2.4s ease-in-out infinite 0.8s; }
+
+    @keyframes ring-pulse {
+      0%, 100% { border-color: rgba(0, 118, 213, 0.1); transform: scale(1); }
+      50% { border-color: rgba(0, 118, 213, 0.4); transform: scale(1.04); }
+    }
+
+    .ripple {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 118, 213, 0.2) 0%, transparent 70%);
+      opacity: 0;
+      transform: scale(1);
+    }
+
+    .ripple.active { animation: ripple-out 2.2s ease-out infinite; }
+    .ripple.delayed.active { animation: ripple-out 2.2s ease-out infinite 0.6s; }
+
+    @keyframes ripple-out {
+      0% { opacity: 0; transform: scale(1); }
+      40% { opacity: 0.5; }
+      100% { opacity: 0; transform: scale(2.2); }
+    }
+
+    .orb {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #001830 0%, #002244 40%, #003366 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 5;
+      box-shadow:
+        0 0 0 3px rgba(0, 118, 213, 0.2),
+        0 0 30px 4px rgba(0, 118, 213, 0.15),
+        inset 0 -4px 12px rgba(0, 0, 0, 0.3);
+      transition: box-shadow 0.4s ease, transform 0.4s ease;
+    }
+
+    .orb.active {
+      box-shadow:
+        0 0 0 3px rgba(0, 139, 251, 0.4),
+        0 0 50px 12px rgba(0, 118, 213, 0.2),
+        0 0 80px 20px rgba(0, 51, 102, 0.3),
+        inset 0 -4px 12px rgba(0, 0, 0, 0.2);
+      animation: orb-breathe 2s ease-in-out infinite;
+    }
+
+    @keyframes orb-breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    .voice-bars {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      height: 44px;
+    }
+
+    .vbar {
+      width: 6px;
+      height: 6px;
+      background: linear-gradient(180deg, var(--accent) 0%, #0099ff 100%);
+      border-radius: 100px;
+      opacity: 0.85;
+      transition: height 0.2s ease;
+    }
+
+    .vbar.active { animation: bar-dance 0.55s ease-in-out infinite alternate; }
+    .vbar:nth-child(1).active { animation-delay: 0s; }
+    .vbar:nth-child(2).active { animation-delay: 0.08s; }
+    .vbar:nth-child(3).active { animation-delay: 0.16s; }
+    .vbar:nth-child(4).active { animation-delay: 0.24s; }
+    .vbar:nth-child(5).active { animation-delay: 0.32s; }
+
+    @keyframes bar-dance {
+      0% { height: 8px; }
+      100% { height: 30px; }
+    }
+
+    .status-chip {
+      margin-top: 20px;
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.4s ease;
+      white-space: nowrap;
+    }
+
+    .status-chip.off {
+      background: rgba(227, 242, 253, 0.06);
+      color: var(--subtitle);
+      border: 1px solid rgba(227, 242, 253, 0.1);
+    }
+
+    .status-chip.on {
+      background: rgba(46, 125, 50, 0.12);
+      color: #5fd07e;
+      border: 1px solid rgba(46, 125, 50, 0.25);
+    }
+
+    .sdot { width: 7px; height: 7px; border-radius: 50%; transition: background 0.3s; }
+    .sdot.off { background: var(--subtitle); }
+    .sdot.on { background: var(--success); animation: blink 1.2s ease-in-out infinite; }
+
+    .actions {
+      padding: 24px 28px 28px;
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.25) 100%);
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      animation: fade-up 0.6s ease-out 0.3s both;
+    }
+
+    .transcript {
+      text-align: center;
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 8px;
+      margin-bottom: 24px;
+    }
+
+    .transcript p {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.45;
+      opacity: 0.92;
+      transition: opacity 0.3s;
+    }
+
+    .cta {
+      width: 100%;
+      padding: 15px 20px;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .cta.start {
+      background: linear-gradient(135deg, #0076D5 0%, #008BFB 50%, #0076D5 100%);
+      background-size: 200% 200%;
+      color: #fff;
+      animation: shimmer-bg 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer-bg {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .cta.start:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 32px -6px rgba(0, 118, 213, 0.4);
+    }
+
+    .cta.start:active { transform: scale(0.98); }
+
+    .cta.end {
+      background: var(--end-btn);
+      color: #fff;
+      animation: none;
+    }
+
+    .cta.end:hover {
+      background: var(--end-btn-hover);
+      transform: translateY(-1px);
+    }
+
+    .cta svg { width: 20px; height: 20px; position: relative; z-index: 1; }
+    .cta span { position: relative; z-index: 1; }
+
+    .err {
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: rgba(211, 47, 47, 0.1);
+      border: 1px solid rgba(211, 47, 47, 0.25);
+      border-radius: 10px;
+      color: #ff6b6b;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 16px;
+      opacity: 0.5;
+    }
+
+    .trust svg { width: 14px; height: 14px; color: var(--accent); }
+    .trust span { font-size: 11px; color: var(--subtitle); letter-spacing: 0.02em; }
+
+    #audioOutput { display: none; }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <audio id="audioOutput" autoplay></audio>
+
+  <div class="widget">
+    <button class="close-btn" onclick="window.parent.postMessage('close-widget', '*')" title="Close">&#x2715;</button>
+
+    <!-- Header -->
+    <div class="hdr">
+      <div class="hdr-top">
+        <img src="https://static.wixstatic.com/media/cf5903_c928ee1332a741469d7acf80cbf5fe7f~mv2.png/v1/fill/w_180,h_85,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Untitled%20design%20(16).png" alt="Edinburghplumbing" class="logo-mark" onerror="this.style.display='none';document.getElementById('logoInitials').style.display='flex'">
+        <div id="logoInitials" class="logo-initials" style="display:none">E</div>
+        <div class="live-badge">
+          <div class="live-dot"></div>
+          <span id="badgeLabel">AI Assistant</span>
+        </div>
+      </div>
+      <h1 id="widgetTitle">Edinburghplumbing</h1>
+      <p class="tagline" id="widgetSubtitle">Ask me anything about Edinburghplumbing</p>
+    </div>
+
+    <!-- Voice Orb -->
+    <div class="orb-section">
+      <div class="orb-wrap">
+        <div class="ring ring-3" id="ring3"></div>
+        <div class="ring ring-2" id="ring2"></div>
+        <div class="ring ring-1" id="ring1"></div>
+        <div class="ripple" id="ripple1"></div>
+        <div class="ripple delayed" id="ripple2"></div>
+        <div class="orb" id="orbCore">
+          <div class="voice-bars">
+            <div class="vbar" id="b1"></div>
+            <div class="vbar" id="b2"></div>
+            <div class="vbar" id="b3"></div>
+            <div class="vbar" id="b4"></div>
+            <div class="vbar" id="b5"></div>
+          </div>
+        </div>
+      </div>
+      <div class="status-chip off" id="statusChip">
+        <div class="sdot off" id="sDot"></div>
+        <span id="sText">Ready</span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <div class="transcript">
+        <p id="txText">Hi! How can I help you today?</p>
+      </div>
+
+      <button class="cta start" id="ctaBtn" onclick="toggleCall()">
+        <svg id="micIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" x2="12" y1="19" y2="22"/>
+        </svg>
+        <svg id="phoneIco" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        <span id="btnLabel">Talk to AI</span>
+      </button>
+
+      <div class="err" id="errBox" style="display:none;"></div>
+
+      <div class="trust">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>AI-powered assistant</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pipecat client -->
+  <script src="widget-bundle.js"></script>
+
+  <script>
+    const { PipecatClient, RTVIEvent, WebSocketTransport } = window;
+
+    let isConnected = false;
+    let pipecatClient = null;
+    const audioEl = document.getElementById('audioOutput');
+
+    const ctaBtn     = document.getElementById('ctaBtn');
+    const btnLabel   = document.getElementById('btnLabel');
+    const micIco     = document.getElementById('micIco');
+    const phoneIco   = document.getElementById('phoneIco');
+    const txText     = document.getElementById('txText');
+    const statusChip = document.getElementById('statusChip');
+    const sDot       = document.getElementById('sDot');
+    const sText      = document.getElementById('sText');
+    const orbCore    = document.getElementById('orbCore');
+    const ripple1    = document.getElementById('ripple1');
+    const ripple2    = document.getElementById('ripple2');
+    const ring1      = document.getElementById('ring1');
+    const ring2      = document.getElementById('ring2');
+    const ring3      = document.getElementById('ring3');
+    const bars = ['b1','b2','b3','b4','b5'].map(id => document.getElementById(id));
+    const errBox = document.getElementById('errBox');
+
+    function updateUI(connected) {
+      isConnected = connected;
+      if (connected) {
+        ctaBtn.className = 'cta end';
+        btnLabel.textContent = CONFIG.END_BUTTON_TEXT;
+        micIco.style.display = 'none';
+        phoneIco.style.display = 'block';
+        statusChip.className = 'status-chip on';
+        sDot.className = 'sdot on';
+        sText.textContent = CONFIG.STATUS_CONNECTED;
+        orbCore.classList.add('active');
+        ripple1.classList.add('active');
+        ripple2.classList.add('active');
+        ring1.classList.add('active');
+        ring2.classList.add('active');
+        ring3.classList.add('active');
+        bars.forEach(b => b.classList.add('active'));
+      } else {
+        ctaBtn.className = 'cta start';
+        btnLabel.textContent = CONFIG.START_BUTTON_TEXT;
+        micIco.style.display = 'block';
+        phoneIco.style.display = 'none';
+        statusChip.className = 'status-chip off';
+        sDot.className = 'sdot off';
+        sText.textContent = CONFIG.STATUS_READY;
+        orbCore.classList.remove('active');
+        ripple1.classList.remove('active');
+        ripple2.classList.remove('active');
+        ring1.classList.remove('active');
+        ring2.classList.remove('active');
+        ring3.classList.remove('active');
+        bars.forEach(b => b.classList.remove('active'));
+      }
+    }
+
+    function setTranscript(t) { txText.textContent = t; }
+
+    function showError(msg) {
+      errBox.textContent = msg;
+      errBox.style.display = 'block';
+      setTimeout(() => { errBox.style.display = 'none'; }, 5000);
+    }
+
+    async function connect() {
+      try {
+        errBox.style.display = 'none';
+        const cfg = {
+          transport: new WebSocketTransport(),
+          enableMic: true,
+          enableCam: false,
+          callbacks: {
+            onConnected: () => { updateUI(true); setTranscript(CONFIG.CONNECTED_TEXT); },
+            onDisconnected: () => { updateUI(false); setTranscript(CONFIG.DISCONNECTED_TEXT); },
+            onBotReady: () => { setTranscript(CONFIG.AGENT_READY_TEXT); },
+            onUserTranscript: (data) => { if (data.final) setTranscript(`You: ${data.text}`); },
+            onBotTranscript: (data) => { setTranscript(`Agent: ${data.text}`); },
+            onError: (err) => { showError(err?.message || 'Unknown error'); }
+          }
+        };
+        const client = new PipecatClient(cfg);
+        pipecatClient = client;
+        client.on(RTVIEvent.TrackStarted, (track, participant) => {
+          if (!participant?.local && track.kind === 'audio' && audioEl) {
+            audioEl.srcObject = new MediaStream([track]);
+          }
+        });
+        setTranscript('Initializing devices...');
+        await client.initDevices();
+        setTranscript(CONFIG.CONNECTING_TEXT);
+        const res = await fetch(`${CONFIG.BACKEND_URL}/frontend/connect`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ assistant_id: CONFIG.ASSISTANT_ID })
+        });
+        if (!res.ok) throw new Error(`Failed to get WebSocket URL: ${res.status}`);
+        const { ws_url } = await res.json();
+        await client.connect({ wsUrl: ws_url });
+      } catch (err) {
+        console.error('Connection error:', err);
+        showError(err.message || 'Connection failed');
+        updateUI(false);
+        setTranscript(CONFIG.CONNECTION_FAILED_TEXT);
+      }
+    }
+
+    async function disconnect() {
+      if (pipecatClient) {
+        try { await pipecatClient.disconnect(); } catch (e) { console.error(e); }
+        pipecatClient = null;
+        updateUI(false);
+      }
+    }
+
+    async function toggleCall() {
+      if (isConnected) await disconnect();
+      else await connect();
+    }
+
+    window.addEventListener('beforeunload', () => {
+      if (pipecatClient) pipecatClient.disconnect().catch(console.error);
+    });
+  </script>
+</body>
+</html>
